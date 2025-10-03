@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xitoydan Tavar Yetkazib Berish</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #FFA726;
+            --accent: #FF4081;
+            --dark: #2C3E50;
+            --light: #FFF9C4;
+            --success: #4CAF50;
+            --text: #333333;
+            --background: #FFFDE7;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--background) 0%, #FFF9C4 100%);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 36px;
+        }
+
+        .admin-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-btn:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--dark);
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+            border-color: var(--primary);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .buy-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            transform: scale(1.02);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            margin-top: 60px;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .contact-title {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        .contact-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 10px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 20px;
+            font-size: 35px;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #f8f9fa;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Rasm yuklash */
+        .image-upload {
+            border: 3px dashed var(--primary);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload:hover {
+            border-color: var(--accent);
+            background: #fff3e0;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            color: var(--dark);
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .uploaded-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .uploaded-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            padding: 20px;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--dark), #34495e);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .admin-actions button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🛍️</span>
+                    Xitoydan Tavar Yetkazib Berish
+                </div>
+                <button class="admin-btn" id="adminButton">Sotuvchi Kirish</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="container">
+                <h1>Xitoydan To'g'ridan-to'g'ri</h1>
+                <p>Eng sara mahsulotlar, eng arzon narxlarda. 12-15 kun ichida yetkazib beramiz!</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Products Section -->
+            <div class="products-section">
+                <h2 class="section-title">Mavjud Mahsulotlar</h2>
+                <div id="productsContainer" class="products-grid">
+                    <!-- Mahsulotlar shu yerda ko'rinadi -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <div class="container">
+                <h2 class="contact-title">Buyurtma berish uchun bog'laning</h2>
+                <a href="https://t.me/xitoy_tavar_yetkazish" class="contact-btn" target="_blank">
+                    📢 Telegram Kanal
+                </a>
+                <a href="tel:+998950404307" class="contact-btn">
+                    📞 +998(95)-040-43-07
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="container">
+            <div class="admin-header">
+                <h1>Sotuvchi Boshqaruv Paneli</h1>
+                <p>Mahsulotlaringizni professional boshqaring</p>
+            </div>
+
+            <div class="admin-actions">
+                <button class="btn-success" id="addProductBtn">➕ Yangi Mahsulot</button>
+                <button class="btn" id="showProductsBtn">📦 Mahsulotlar</button>
+                <button class="btn-danger" id="logoutBtn">🚪 Chiqish</button>
+            </div>
+
+            <div id="adminContent">
+                <!-- Admin kontenti shu yerda ko'rinadi -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2 style="text-align: center; color: var(--dark); margin-bottom: 30px;">Sotuvchi Kirish</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="username" placeholder="Login" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" placeholder="Parol" required>
+                </div>
+                <button type="submit" class="btn">Tizimga kirish</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // BARCHA TUGMALAR
+        const adminButton = document.getElementById('adminButton');
+        const adminModal = document.getElementById('adminModal');
+        const closeModal = document.getElementById('closeModal');
+        const loginForm = document.getElementById('loginForm');
+        const addProductBtn = document.getElementById('addProductBtn');
+        const showProductsBtn = document.getElementById('showProductsBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const mainContent = document.getElementById('mainContent');
+        const adminPanel = document.getElementById('adminPanel');
+        const adminContent = document.getElementById('adminContent');
+
+        // Mahsulotlar ro'yxati
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+        let currentUploadedImage = null;
+
+        // 1. SOTUVCHI TUGMASI
+        adminButton.onclick = function() {
+            console.log('Sotuvchi tugmasi bosildi!');
+            adminModal.style.display = 'block';
+        };
+
+        // 2. MODALNI YOPISH
+        closeModal.onclick = function() {
+            adminModal.style.display = 'none';
+        };
+
+        // 3. LOGIN FORMASI
+        loginForm.onsubmit = function(e) {
+            e.preventDefault();
+            console.log('Login formasi yuborildi');
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if ((username === 'xabibulloxoshimov017' && password === '28112006') || 
+                (username === 'admin' && password === '1981')) {
+                alert('Kirish muvaffaqiyatli!');
+                adminModal.style.display = 'none';
+                mainContent.style.display = 'none';
+                adminPanel.style.display = 'block';
+                showAdminProducts();
+            } else {
+                alert('Xato: Login yoki parol notoʻgʻri!');
+            }
+        };
+
+        // 4. YANGI MAHSULOT TUGMASI
+        addProductBtn.onclick = function() {
+            console.log('Yangi mahsulot tugmasi bosildi');
+            adminContent.innerHTML = `
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px;">
+                    <h2 style="color: var(--dark); margin-bottom: 20px;">Yangi Mahsulot Qo'shish</h2>
+                    <form id="newProductForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="productName" placeholder="Mahsulot nomi" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="productDescription" placeholder="Mahsulot tavsifi" required style="height: 100px;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="productPriceUSD" placeholder="Narxi (USD)" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="productPriceUZS" placeholder="Narxi (so'm)" required>
+                        </div>
+                        
+                        <!-- Rasm yuklash -->
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; font-weight: bold;">Mahsulot rasmini yuklang:</label>
+                            <div class="image-upload" id="imageUploadArea">
+                                <div class="upload-icon">📸</div>
+                                <div class="upload-text">Rasm yuklash uchun bosing</div>
+                                <div class="upload-hint">Yoki rasmni shu yerga sudrab tashlang</div>
+                                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                            </div>
+                            <div id="uploadedImages" class="uploaded-images"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn" style="background: var(--success);">✅ Mahsulotni Qo'shish</button>
+                    </form>
+                </div>
+            `;
+
+            // Rasm yuklash funksiyasini qo'shish
+            const imageUploadArea = document.getElementById('imageUploadArea');
+            const imageInput = document.getElementById('imageInput');
+            const uploadedImages = document.getElementById('uploadedImages');
+
+            imageUploadArea.onclick = function() {
+                imageInput.click();
+            };
+
+            imageInput.onchange = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        currentUploadedImage = e.target.result;
+                        uploadedImages.innerHTML = `
+                            <img src="${currentUploadedImage}" class="uploaded-image">
+                        `;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            // Formani yuborish
+            const newProductForm = document.getElementById('newProductForm');
+            newProductForm.onsubmit = function(e) {
+                e.preventDefault();
+                
+                if (!currentUploadedImage) {
+                    alert('Iltimos, mahsulot uchun rasm yuklang!');
+                    return;
+                }
+
+                const newProduct = {
+                    id: Date.now(),
+                    name: document.getElementById('productName').value,
+                    description: document.getElementById('productDescription').value,
+                    priceUSD: parseFloat(document.getElementById('productPriceUSD').value),
+                    priceUZS: parseInt(document.getElementById('productPriceUZS').value),
+                    image: currentUploadedImage
+                };
+
+                products.push(newProduct);
+                localStorage.setItem('products', JSON.stringify(products));
+                
+                alert('✅ Mahsulot muvaffaqiyatli qoʻshildi!');
+                showAdminProducts();
+                displayProducts();
+            };
+        };
+
+        // 5. MAHSULOTLAR TUGMASI
+        showProductsBtn.onclick = function() {
+            console.log('Mahsulotlar tugmasi bosildi');
+            showAdminProducts();
+        };
+
+        // 6. CHIQISH TUGMASI
+        logoutBtn.onclick = function() {
+            console.log('Chiqish tugmasi bosildi');
+            adminPanel.style.display = 'none';
+            mainContent.style.display = 'block';
+        };
+
+        // 7. TASHQARIGA BOSGANDA MODALNI YOPISH
+        window.onclick = function(event) {
+            if (event.target === adminModal) {
+                adminModal.style.display = 'none';
+            }
+        };
+
+        // Admin panelida mahsulotlarni ko'rsatish
+        function showAdminProducts() {
+            let productsHTML = '';
+            
+            if (products.length === 0) {
+                productsHTML = '<p>Hozircha mahsulotlar mavjud emas</p>';
+            } else {
+                productsHTML = products.map(product => `
+                    <div style="background: white; padding: 20px; margin: 15px 0; border-radius: 10px; border-left: 5px solid var(--primary);">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div style="flex: 1;">
+                                <h3 style="color: var(--dark); margin-bottom: 10px;">${product.name}</h3>
+                                <p style="color: #666; margin-bottom: 10px;">${product.description}</p>
+                                <p style="color: var(--primary); font-weight: bold; font-size: 1.2em;">
+                                    $${product.priceUSD} | ${product.priceUZS.toLocaleString()} so'm
+                                </p>
+                            </div>
+                            <img src="${product.image}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-left: 15px;">
+                        </div>
+                        <button class="btn-danger" onclick="deleteProduct(${product.id})" style="margin-top: 10px; padding: 8px 15px;">
+                            🗑️ O'chirish
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            adminContent.innerHTML = `
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px;">
+                    <h2 style="color: var(--dark); margin-bottom: 20px;">Mavjud Mahsulotlar</h2>
+                    ${productsHTML}
+                </div>
+            `;
+        }
+
+        // Mahsulotni o'chirish
+        window.deleteProduct = function(productId) {
+            if (confirm('Haqiqatan ham bu mahsulotni oʻchirmoqchimisiz?')) {
+                products = products.filter(p => p.id !== productId);
+                localStorage.setItem('products', JSON.stringify(products));
+                showAdminProducts();
+                displayProducts();
+                alert('✅ Mahsulot oʻchirildi!');
+            }
+        };
+
+        // Mahsulotlarni ko'rsatish
+        function displayProducts() {
+            const container = document.getElementById('productsContainer');
+            
+            if (products.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #666;">
+                        <h3 style="margin-bottom: 15px; color: var(--primary);">Hozircha mahsulotlar mavjud emas</h3>
+                        <p>Mahsulot qo'shish uchun "Sotuvchi Kirish" tugmasini bosing</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p style="color: #666; margin-bottom: 15px;">${product.description}</p>
+                        <div class="product-price">$${product.priceUSD} | ${product.priceUZS.toLocaleString()} so'm</div>
+                        <button class="buy-btn" onclick="buyProduct(${product.id})">🛒 Buyurtma berish</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // BUYURTMA BERISH FUNKSIYASI - TO'G'RILANDI
+        window.buyProduct = function(productId) {
+            console.log('Buyurtma berish tugmasi bosildi:', productId);
+            
+            const product = products.find(p => p.id === productId);
+            if (!product) {
+                alert('Mahsulot topilmadi!');
+                return;
+            }
+
+            const message = `🛒 YANGI BUYURTMA%0A%0A` +
+                          `📦 Mahsulot: ${product.name}%0A` +
+                          `💰 Narx: $${product.priceUSD} | ${product.priceUZS.toLocaleString()} so'm%0A` +
+                          `📝 Tavsif: ${product.description}%0A` +
+                          `🚚 Yetkazib berish: 12-15 kun%0A%0A` +
+                          `👤 Mijoz ma'lumotlari:%0A` +
+                          `Ism: ________%0A` +
+                          `Telefon: ________%0A` +
+                          `Manzil: ________%0A%0A` +
+                          `💬 Qo'shimcha izoh: ________`;
+
+            const telegramUrl = `https://t.me/xitoy_tavar_yetkazish?text=${encodeURIComponent(message)}`;
+            
+            console.log('Telegram URL:', telegramUrl);
+            window.open(telegramUrl, '_blank');
+        };
+
+        // Sahifa yuklanganida
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ Sayt yuklandi - Barcha tugmalar ishlaydi');
+            displayProducts();
+        });
+    </script>
+</body>
+</html>
